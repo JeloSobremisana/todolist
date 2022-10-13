@@ -1,0 +1,94 @@
+<div class="container">
+    <h1 class="center">{{title}}</h1>
+    <button class="waves-effect waves-light btn add-button modal-trigger green" href="#add-action">new</button>
+    <hr>
+    {{#each data.data}}
+    <div class="card horizontal">
+        <div class="card-stacked">
+            <div class="card-content">
+                <div class="row" mb-0>
+                    <div class="col s8">
+                        {{#if this.status}}
+                        <h6>{{this.action}}</h6>
+                        {{else}}
+                        <h6 done>{{this.action}}</h6>
+                        {{/if}}
+                    </div>
+                    <div class="col s4" ta-right>
+                        {{!-- <button class="waves-effect waves-light btn"><i
+                                class="material-icons right">edit</i></button> --}}
+                        {{#if this.status}}
+                        <button class="waves-effect waves-light btn update-status" id="{{this._id}}"
+                            data-status="{{this.status}}"><i class="material-icons right">close</i></button>
+                        {{else}}
+                        <button class="waves-effect waves-light btn green update-status" id="{{this._id}}"
+                            data-status="{{this.status}}"><i class="material-icons right">check</i></button>
+                        {{/if}}
+                        <button class="waves-effect waves-light btn red modal-trigger delete-action"
+                            href="#delete-modal" id="{{this._id}}" data-action="{{this.action}}"><i
+                                class="material-icons right">delete</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <div class="center">
+        {{#if data.data}}
+        <ul class="pagination">
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="/?page=1&limit=5">1</a></li>
+            {{#each data.paginationData}}
+            <li class="waves-effect"><a href="/?page={{this.page}}&limit={{this.limit}}">{{this.page}}</a></li>
+            {{/each}}
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+        {{else}}
+        <h4>No data available.</h4>
+        {{/if}}
+    </div>
+</div>
+
+<!-- Delete modal -->
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+        <h4>Are you sure you want to permanently delete this data?</h4>
+        <h5>Todo: <strong><span class="action"></span></strong></h5>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-close waves-effect waves-green btn-flat delete-confirm" red-text>Confirm</button>
+    </div>
+</div>
+
+<!-- Add modal -->
+<div id="add-action" class="modal">
+    <form id="add-form">
+        <div class="modal-content">
+            <h4>Add todo</h4>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Eat" id="todo" type="text" class="validate" required>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="waves-effect waves-green btn-flat">Submit</button>
+        </div>
+    </form>
+</div>
+
+{{!-- <div class="loading center" hide>
+    <div class="preloader-wrapper big active loader" top-50perc>
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div> --}}
