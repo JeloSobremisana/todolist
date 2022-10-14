@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Transform = require('../utils/transform');
 
 const TodoSchema = new Schema({
     action: {
@@ -26,40 +27,19 @@ module.exports = Todo;
 
 module.exports.getDataByPagination = async (page, limit) => {
     const totalItems = await Todo.count();
-    const totalPages = Math.ceil(totalItems/limit);
-    const skipVal = ((page - 1) * limit);
-    const paginationData = [];
-    for (let i = 1; i <= totalPages; i++ ) {
-        paginationData.push({
-            page: i,
-            limit: limit,
-            class: page == i ? 'active' : 'inactive',
-        });
-    }
-    const previousValue = {
-        class: page > 1 ? 'enabled' : 'disabled',
-        page: page > 1 ? Number(page) - 1 : 1,
-        limit,
-    };
-    const nextValue = {
-        class: page == totalPages ? 'disabled' : 'enabled',
-        page: page < totalPages ? Number(page) + 1 : totalPages,
-        limit,
-    };
+    const { skipVal, paginationData, previous, next } = Transform.paginationDatas(page, limit, totalItems);
     const result = await Todo.find({}, {
         _id: 1,
         action: 1,
-        status: 1,
-        // createdAt: 1,
-        // updatedAt: 1,
+        status: 1
     }).sort({
-        updatedAt: -1,
-        strstatus: -1
+        strstatus: 1,
+        updatedAt: -1
     }).skip(skipVal).limit(limit);
 
     return {
-        previous: previousValue,
-        next: nextValue,
+        previous,
+        next,
         paginationData,
         data: result
     }

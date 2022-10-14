@@ -7,12 +7,6 @@ const TodoController = {
         try {
             const { page, limit } = req.query;
             let result = await Todo.getDataByPagination(page, limit);
-            //  add new key with status as string to be sorted in javascript since 
-            //  mongo cannot sort data by boolean
-            let newResult = Transform.addBooleanString(result.data);
-            //  sort data by status as a string
-            newResult = newResult.sort((a,b) => { return b.strstatus.localeCompare(a.strstatus)}); 
-            result.data = newResult;
             res.send(Helper.successResponse(result));
         } catch (err) {
             console.log(err);

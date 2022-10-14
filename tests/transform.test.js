@@ -37,4 +37,15 @@ describe('transform.js tests', () => {
             }
         });
     });
+
+    describe('paginationDatas function testing', () => {
+        it('should have paginationData key, skipVal, previous and next on return', () => {
+            const result = Transform.paginationDatas(2, 5, 6);
+            expect(result.next).toBeTruthy();
+            expect(result.previous).toBeTruthy();
+            expect(result.paginationData).toBeTruthy();
+            expect(result.skipVal).toBeTruthy();
+            expect(result.test).toBeFalsy();
+        })
+    });
 });
