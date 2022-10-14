@@ -36,12 +36,12 @@
     <div class="center">
         {{#if data.data}}
         <ul class="pagination">
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active"><a href="/?page=1&limit=5">1</a></li>
+            <li class="{{data.previous.class}}"><a href="/?page={{data.previous.page}}&limit={{data.previous.limit}}"><i class="material-icons">chevron_left</i></a></li>
             {{#each data.paginationData}}
-            <li class="waves-effect"><a href="/?page={{this.page}}&limit={{this.limit}}">{{this.page}}</a></li>
+            {{!-- <li class="active"><a href="/?page=1&limit=5">1</a></li> --}}
+            <li class="waves-effect {{this.class}}"><a href="/?page={{this.page}}&limit={{this.limit}}">{{this.page}}</a></li>
             {{/each}}
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            <li class="{{data.next.class}}"><a href="/?page={{data.next.page}}&limit={{data.next.limit}}"><i class="material-icons">chevron_right</i></a></li>
         </ul>
         {{else}}
         <h4>No data available.</h4>
