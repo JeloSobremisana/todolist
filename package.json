@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-dev": "set NODE_ENV=dev&& nodemon ./bin/www",
-    "start-local": "set NODE_ENV=local&& nodemon ./bin/www",
+    "dev": "set NODE_ENV=dev&& nodemon ./bin/www",
+    "local": "set NODE_ENV=local&& nodemon ./bin/www",
     "test": "jest"
   },
   "dependencies": {
